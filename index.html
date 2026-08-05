@@ -104,6 +104,23 @@
   }
   .meta-item strong { color: var(--text); font-weight: 500; }
 
+  .cta-wrap {
+    position: relative; margin-top: 30px;
+    animation: rise .8s ease-out 1.35s both;
+  }
+  .cta {
+    display: inline-block; padding: 12px 30px; border-radius: 999px;
+    background: linear-gradient(90deg, var(--pink), var(--violet));
+    color: #0b0b0d; font-size: 1rem; font-weight: 600; letter-spacing: .01em;
+    box-shadow: 0 6px 26px rgba(255, 77, 157, .25);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .cta:hover {
+    text-decoration: none; transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(255, 77, 157, .38);
+  }
+  .cta-note { color: var(--dim); font-size: .82rem; margin: 12px 0 0; }
+
   @keyframes rise { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
 
   /* ---------- sections ---------- */
@@ -137,7 +154,7 @@
   }
   .card:hover { border-color: rgba(255, 77, 157, .4); transform: translateY(-2px); }
   .card .name { font-weight: 500; }
-  .card .role { color: var(--dim); font-size: .83rem; margin-top: 2px; }
+  .card .mail { display: inline-block; font-size: .82rem; margin-top: 4px; word-break: break-all; }
 
   /* ---------- venue ---------- */
   .panel { border: 1px solid var(--border); background: var(--panel); border-radius: 12px; padding: 22px 24px; }
@@ -170,6 +187,8 @@
       <a href="#timetable">Timetable</a>
       <a href="#committee">Committee</a>
       <a href="#venue">Venue</a>
+      <!-- REGISTRATION LINK (1 of 2) -- paste your Google Form URL here -->
+      <a href="https://forms.gle/YOURCODE" target="_blank" rel="noopener">Register</a>
     </div>
   </nav>
 </header>
@@ -181,22 +200,19 @@
     <h1>py<em>Ring</em> Workshop</h1>
     <p class="tagline">A one-day, hands-on workshop on black hole ringdown analysis with pyRing, held as a satellite event following Ringdown in Lisbon.</p>
     <div class="meta-row">
-      <div class="meta-item"><strong>Date</strong> &nbsp;TBA &middot; 2026</div>
+      <div class="meta-item"><strong>Date</strong> &nbsp;22 October 2026</div>
       <div class="meta-item"><strong>Duration</strong> &nbsp;1 day</div>
       <div class="meta-item"><strong>Venue</strong> &nbsp;Instituto Superior Técnico, Lisbon</div>
+    </div>
+    <div class="cta-wrap">
+      <!-- REGISTRATION LINK (2 of 2) -- paste your Google Form URL here -->
+      <a class="cta" href="https://forms.gle/YOURCODE" target="_blank" rel="noopener">Register for the workshop</a>
+      <p class="cta-note">Places are limited &mdash; registration is confirmed by the organisers.</p>
     </div>
   </section>
 
   <section id="about">
     <h2>About</h2>
-    <p>
-      <a href="https://lscsoft.docs.ligo.org/pyring/introduction/" target="_blank" rel="noopener">pyRing</a>
-      is a Python package for black hole ringdown analysis, model comparison, and parameter estimation of
-      post-merger gravitational-wave signals. It supports ringdown analyses with a range of waveform models,
-      parametrised tests of General Relativity, and quasi-normal mode spectrum predictions for emissions
-      alternative to the Kerr solution. The code is used within the LIGO&ndash;Virgo&ndash;KAGRA collaboration
-      to produce catalogs of black hole ringdown properties and tests of GR in the merger-ringdown regime.
-    </p>
     <p>
       This workshop brings the pyRing user and developer community together for a focused, practical day of
       talks and tutorials, immediately following the
@@ -224,11 +240,27 @@
 
   <section id="committee">
     <h2>Scientific Organising Committee</h2>
-    <p class="note">To be announced.</p>
     <div class="grid">
-      <div class="card"><div class="name">TBA</div><div class="role">Organiser</div></div>
-      <div class="card"><div class="name">TBA</div><div class="role">Organiser</div></div>
-      <div class="card"><div class="name">TBA</div><div class="role">Organiser</div></div>
+      <div class="card">
+        <div class="name">Giada Caneva Santoro</div>
+        <a class="mail" href="mailto:giada.canevasantoro@gmail.com">giada.canevasantoro@gmail.com</a>
+      </div>
+      <div class="card">
+        <div class="name">Gregorio Carullo</div>
+        <a class="mail" href="mailto:gregoriocarullo1618@gmail.com">gregoriocarullo1618@gmail.com</a>
+      </div>
+      <div class="card">
+        <div class="name">Nicola Franchini</div>
+        <a class="mail" href="mailto:nicola.franchini@tecnico.ulisboa.pt">nicola.franchini@tecnico.ulisboa.pt</a>
+      </div>
+      <div class="card">
+        <div class="name">Simon Maenaut</div>
+        <a class="mail" href="mailto:simon.maenaut@nbi.ku.dk">simon.maenaut@nbi.ku.dk</a>
+      </div>
+      <div class="card">
+        <div class="name">Joachim Pomper</div>
+        <a class="mail" href="mailto:joachim.pomper@phd.unipi.it">joachim.pomper@phd.unipi.it</a>
+      </div>
     </div>
   </section>
 
@@ -238,8 +270,7 @@
       <p>
         The workshop is planned to take place at
         <a href="https://fisica.tecnico.ulisboa.pt/en/" target="_blank" rel="noopener">Instituto Superior Técnico</a>,
-        Lisbon &mdash; the same institution hosting the preceding Ringdown in Lisbon meeting.
-        Exact room and access details will be added closer to the date.
+        Lisbon. Exact room and access details will be added closer to the date.
       </p>
       <a class="btn" href="https://fisica.tecnico.ulisboa.pt/en/ringdown-in-lisbon/venue-and-accommodation/" target="_blank" rel="noopener">Venue &amp; accommodation &rarr;</a>
     </div>
