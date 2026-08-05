@@ -147,24 +147,16 @@
   td.tba { color: var(--dim); }
 
   /* ---------- committee ---------- */
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
-  .card {
-    border: 1px solid var(--border); background: var(--panel);
-    border-radius: 10px; padding: 16px 18px; transition: border-color .2s, transform .2s;
+  .people { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 0; padding: 0; list-style: none; }
+  .people a {
+    color: var(--text); font-size: .98rem;
+    border-bottom: 1px solid transparent; transition: border-color .2s, color .2s;
   }
-  .card:hover { border-color: rgba(255, 77, 157, .4); transform: translateY(-2px); }
-  .card .name { font-weight: 500; }
-  .card .mail { display: inline-block; font-size: .82rem; margin-top: 4px; word-break: break-all; }
+  .people a:hover { color: var(--pink); border-bottom-color: rgba(255, 77, 157, .5); text-decoration: none; }
 
   /* ---------- venue ---------- */
   .panel { border: 1px solid var(--border); background: var(--panel); border-radius: 12px; padding: 22px 24px; }
   .panel p:first-child { margin-top: 0; }
-  .btn {
-    display: inline-block; margin-top: 16px; padding: 9px 18px;
-    border: 1px solid rgba(255, 77, 157, .45); border-radius: 8px;
-    color: var(--pink); font-size: .92rem; transition: background .2s, color .2s;
-  }
-  .btn:hover { background: var(--pink); color: #0b0b0d; text-decoration: none; border-color: var(--pink); }
 
   footer {
     max-width: 900px; margin: 0 auto;
@@ -187,8 +179,8 @@
       <a href="#timetable">Timetable</a>
       <a href="#committee">Committee</a>
       <a href="#venue">Venue</a>
-      <!-- REGISTRATION LINK (1 of 2) -- paste your Google Form URL here -->
-      <a href="https://forms.gle/YOURCODE" target="_blank" rel="noopener">Register</a>
+      <!-- registration form (1 of 2) -->
+      <a href="https://forms.gle/75ivxUAf3QNnftjp7" target="_blank" rel="noopener">Register</a>
     </div>
   </nav>
 </header>
@@ -205,8 +197,8 @@
       <div class="meta-item"><strong>Venue</strong> &nbsp;Instituto Superior Técnico, Lisbon</div>
     </div>
     <div class="cta-wrap">
-      <!-- REGISTRATION LINK (2 of 2) -- paste your Google Form URL here -->
-      <a class="cta" href="https://forms.gle/YOURCODE" target="_blank" rel="noopener">Register for the workshop</a>
+      <!-- registration form (2 of 2) -->
+      <a class="cta" href="https://forms.gle/75ivxUAf3QNnftjp7" target="_blank" rel="noopener">Register for the workshop</a>
       <p class="cta-note">Places are limited &mdash; registration is confirmed by the organisers.</p>
     </div>
   </section>
@@ -240,28 +232,14 @@
 
   <section id="committee">
     <h2>Scientific Organising Committee</h2>
-    <div class="grid">
-      <div class="card">
-        <div class="name">Giada Caneva Santoro</div>
-        <a class="mail" href="mailto:giada.canevasantoro@gmail.com">giada.canevasantoro@gmail.com</a>
-      </div>
-      <div class="card">
-        <div class="name">Gregorio Carullo</div>
-        <a class="mail" href="mailto:gregoriocarullo1618@gmail.com">gregoriocarullo1618@gmail.com</a>
-      </div>
-      <div class="card">
-        <div class="name">Nicola Franchini</div>
-        <a class="mail" href="mailto:nicola.franchini@tecnico.ulisboa.pt">nicola.franchini@tecnico.ulisboa.pt</a>
-      </div>
-      <div class="card">
-        <div class="name">Simon Maenaut</div>
-        <a class="mail" href="mailto:simon.maenaut@nbi.ku.dk">simon.maenaut@nbi.ku.dk</a>
-      </div>
-      <div class="card">
-        <div class="name">Joachim Pomper</div>
-        <a class="mail" href="mailto:joachim.pomper@phd.unipi.it">joachim.pomper@phd.unipi.it</a>
-      </div>
-    </div>
+    <p class="note">Click a name to get in touch.</p>
+    <ul class="people">
+      <li><a href="mailto:giada.canevasantoro@gmail.com">Giada Caneva Santoro</a></li>
+      <li><a href="mailto:gregoriocarullo1618@gmail.com">Gregorio Carullo</a></li>
+      <li><a href="mailto:nicola.franchini@tecnico.ulisboa.pt">Nicola Franchini</a></li>
+      <li><a href="mailto:simon.maenaut@nbi.ku.dk">Simon Maenaut</a></li>
+      <li><a href="mailto:joachim.pomper@phd.unipi.it">Joachim Pomper</a></li>
+    </ul>
   </section>
 
   <section id="venue">
@@ -272,7 +250,6 @@
         <a href="https://fisica.tecnico.ulisboa.pt/en/" target="_blank" rel="noopener">Instituto Superior Técnico</a>,
         Lisbon. Exact room and access details will be added closer to the date.
       </p>
-      <a class="btn" href="https://fisica.tecnico.ulisboa.pt/en/ringdown-in-lisbon/venue-and-accommodation/" target="_blank" rel="noopener">Venue &amp; accommodation &rarr;</a>
     </div>
   </section>
 
