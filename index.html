@@ -138,13 +138,80 @@
   p { color: var(--dim); }
 
   /* ---------- timetable ---------- */
-  table { width: 100%; border-collapse: collapse; }
-  th, td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--border); font-size: .95rem; }
-  th { color: var(--dim); font-weight: 500; text-transform: uppercase; font-size: .72rem; letter-spacing: .07em; }
-  tbody tr:last-child td { border-bottom: none; }
-  tbody tr:hover td { background: rgba(255, 77, 157, .04); }
-  td.time { color: var(--pink); white-space: nowrap; font-variant-numeric: tabular-nums; width: 1%; }
-  td.tba { color: var(--dim); }
+  .tt-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+  .tt-head .note { margin: 0; }
+  .toggle-all {
+    font: inherit; font-size: .82rem; color: var(--dim); cursor: pointer;
+    background: none; border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px;
+    transition: color .2s, border-color .2s;
+  }
+  .toggle-all:hover { color: var(--text); border-color: var(--pink); }
+
+  .timeline { display: flex; flex-direction: column; gap: 10px; }
+
+  .slot {
+    display: grid; grid-template-columns: 112px 1fr; gap: 0 18px; align-items: baseline;
+  }
+  .time {
+    color: var(--pink); font-variant-numeric: tabular-nums; font-size: .92rem;
+    white-space: nowrap; padding-top: 2px;
+  }
+
+  /* breaks: quiet rows */
+  .break { padding: 6px 18px; }
+  .break .label { color: var(--dim); font-size: .92rem; display: flex; align-items: center; gap: 10px; }
+  .break .label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+  .break .time { color: var(--dim); }
+
+  /* sessions: expandable cards */
+  .session {
+    border: 1px solid var(--border); background: var(--panel); border-radius: 12px;
+    transition: border-color .25s, box-shadow .25s, transform .25s;
+  }
+  .session:hover, .session[open] {
+    border-color: rgba(255, 77, 157, .45);
+    box-shadow: 0 8px 30px rgba(255, 77, 157, .08);
+  }
+  .session:hover { transform: translateY(-1px); }
+  .session summary {
+    list-style: none; cursor: pointer; padding: 16px 18px;
+    display: grid; grid-template-columns: 112px 1fr auto; gap: 0 18px; align-items: center;
+  }
+  .session summary::-webkit-details-marker { display: none; }
+  .session summary:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-radius: 12px; }
+  .s-title { font-weight: 600; font-size: 1.02rem; color: var(--text); display: flex; align-items: center; gap: 10px; }
+  .badge {
+    font-size: .72rem; font-weight: 600; letter-spacing: .04em; color: #0b0b0d;
+    background: linear-gradient(90deg, var(--pink), var(--violet));
+    border-radius: 6px; padding: 2px 8px; flex-shrink: 0;
+  }
+  .s-teaser { display: block; color: var(--dim); font-size: .88rem; font-weight: 400; margin-top: 3px; }
+  .chev {
+    width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border);
+    display: grid; place-items: center; color: var(--dim); transition: transform .3s, color .2s, border-color .2s;
+  }
+  .session:hover .chev { color: var(--pink); border-color: rgba(255, 77, 157, .5); }
+  .session[open] .chev { transform: rotate(180deg); color: var(--pink); }
+
+  .s-body {
+    padding: 0 18px 18px calc(112px + 36px);
+    animation: reveal .35s ease-out;
+  }
+  .topics { list-style: none; margin: 0; padding: 14px 0 0; border-top: 1px dashed var(--border); display: grid; gap: 8px; }
+  .topics li { position: relative; padding-left: 18px; color: var(--text); font-size: .93rem; }
+  .topics li::before {
+    content: ""; position: absolute; left: 0; top: .62em; width: 7px; height: 7px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--violet));
+  }
+  @keyframes reveal { from { opacity: 0; transform: translateY(-6px) } to { opacity: 1; transform: none } }
+
+  @media (max-width: 620px) {
+    .slot { grid-template-columns: 1fr; }
+    .break { padding: 6px 4px; grid-template-columns: 96px 1fr; }
+    .session summary { grid-template-columns: 1fr auto; gap: 4px 12px; }
+    .session summary .time { grid-column: 1 / -1; }
+    .s-body { padding: 0 18px 18px; }
+  }
 
   /* ---------- committee ---------- */
   .people { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 0; padding: 0; list-style: none; }
@@ -209,25 +276,118 @@
       This workshop brings the pyRing user and developer community together for a focused, practical day of
       talks and tutorials, immediately following the
       <a href="https://fisica.tecnico.ulisboa.pt/en/ringdown-in-lisbon/" target="_blank" rel="noopener">Ringdown in Lisbon</a>
-      meeting. Details on the program and registration will be posted here as they are finalised.
+      meeting. The program is below.
     </p>
   </section>
 
   <section id="timetable">
     <h2>Timetable</h2>
-    <p class="note">Provisional &mdash; full program to be announced.</p>
-    <table>
-      <thead><tr><th>Time</th><th>Session</th></tr></thead>
-      <tbody>
-        <tr><td class="time">TBA</td><td class="tba">Registration &amp; welcome</td></tr>
-        <tr><td class="time">TBA</td><td class="tba">Session I</td></tr>
-        <tr><td class="time">TBA</td><td class="tba">Coffee break</td></tr>
-        <tr><td class="time">TBA</td><td class="tba">Session II</td></tr>
-        <tr><td class="time">TBA</td><td class="tba">Lunch</td></tr>
-        <tr><td class="time">TBA</td><td class="tba">Hands-on tutorial session</td></tr>
-        <tr><td class="time">TBA</td><td class="tba">Discussion &amp; closing</td></tr>
-      </tbody>
-    </table>
+    <div class="tt-head">
+      <p class="note">Thursday 22 October 2026 &middot; Lisbon time (WEST). Click a session to see its topics.</p>
+      <button class="toggle-all" type="button" aria-pressed="false">Expand all</button>
+    </div>
+
+    <div class="timeline">
+
+      <div class="slot break"><span class="time">09:00&ndash;09:30</span><span class="label">Welcome and coffee</span></div>
+
+      <details class="session">
+        <summary>
+          <span class="time">09:30&ndash;11:00</span>
+          <span><span class="s-title"><span class="badge">I</span>Science with pyRing: models and methods</span>
+          <span class="s-teaser">New models and inference tools we would like to build.</span></span>
+          <span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="s-body">
+          <ul class="topics">
+            <li>Porting pyRing to JAX</li>
+            <li>New Kerr post-merger models</li>
+            <li>Longer time-domain analyses</li>
+            <li>A Fisher-matrix estimator in pyRing</li>
+            <li>Post-processing strategies for beyond-GR tests</li>
+          </ul>
+        </div>
+      </details>
+
+      <div class="slot break"><span class="time">11:00&ndash;11:30</span><span class="label">Coffee break</span></div>
+
+      <details class="session">
+        <summary>
+          <span class="time">11:30&ndash;13:00</span>
+          <span><span class="s-title"><span class="badge">II</span>Science with pyRing: analysis strategy and studies</span>
+          <span class="s-teaser">What to analyse, how to choose models, and which studies to run.</span></span>
+          <span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="s-body">
+          <ul class="topics">
+            <li>Event selection, model selection and mode detection</li>
+            <li>Simulation studies for clean higher-mode detections</li>
+            <li>Large injection campaigns in real detector noise</li>
+            <li>Systematics in high-SNR injections</li>
+            <li>Selection effects, priors and population analyses</li>
+            <li>Numerical-relativity simulation infrastructure</li>
+          </ul>
+        </div>
+      </details>
+
+      <div class="slot break"><span class="time">13:00&ndash;14:00</span><span class="label">Lunch</span></div>
+
+      <details class="session">
+        <summary>
+          <span class="time">14:00&ndash;15:30</span>
+          <span><span class="s-title"><span class="badge">III</span>Code quality, review and infrastructure</span>
+          <span class="s-teaser">How we develop, test and run pyRing, with new tools.</span></span>
+          <span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="s-body">
+          <ul class="topics">
+            <li>Git hosting and development workflow</li>
+            <li>Tests, continuous integration and avoiding regressions</li>
+            <li>AI-assisted code, documentation and review: opportunities and pitfalls</li>
+            <li>Running on clusters with containers</li>
+          </ul>
+        </div>
+      </details>
+
+      <div class="slot break"><span class="time">15:30&ndash;16:00</span><span class="label">Coffee break</span></div>
+
+      <details class="session">
+        <summary>
+          <span class="time">16:00&ndash;17:00</span>
+          <span><span class="s-title"><span class="badge">IV</span>Pipelines, priorities and closing</span>
+          <span class="s-teaser">Automation, catalogue contributions, and who does what next.</span></span>
+          <span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="s-body">
+          <ul class="topics">
+            <li>Automated pipelines: pipeRing and namib</li>
+            <li>Improving pyRing&rsquo;s contribution to catalogue analyses</li>
+            <li>Making time for science beyond large collaborations</li>
+            <li>Priorities and owners for each project</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+
+    <script>
+      (function () {
+        var btn = document.querySelector('.toggle-all');
+        var items = document.querySelectorAll('.session');
+        if (!btn) return;
+        function sync() {
+          var allOpen = Array.prototype.every.call(items, function (d) { return d.open; });
+          btn.textContent = allOpen ? 'Collapse all' : 'Expand all';
+          btn.setAttribute('aria-pressed', allOpen ? 'true' : 'false');
+        }
+        btn.addEventListener('click', function () {
+          var open = btn.getAttribute('aria-pressed') !== 'true';
+          items.forEach(function (d) { d.open = open; });
+          sync();
+        });
+        items.forEach(function (d) { d.addEventListener('toggle', sync); });
+      })();
+    </script>
   </section>
 
   <section id="committee">
