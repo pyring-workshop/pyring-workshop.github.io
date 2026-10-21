@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>pyRing Workshop</title>
 <meta name="description" content="A one-day workshop on black hole ringdown analysis with pyRing, following Ringdown in Lisbon.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
   :root {
     --bg: #08090b;
@@ -227,6 +228,38 @@
   .panel { border: 1px solid var(--border); background: var(--panel); border-radius: 12px; padding: 22px 24px; }
   .panel p:first-child { margin-top: 0; }
 
+
+  /* ---------- venue map ---------- */
+  .map {
+    margin-top: 18px; height: 280px; border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--border); background: #0d0f13;
+  }
+  .map .leaflet-container { background: #0d0f13; font: inherit; }
+  .map .leaflet-control-attribution {
+    background: rgba(8, 9, 11, .72) !important; color: var(--dim); font-size: .66rem;
+  }
+  .map .leaflet-control-attribution a { color: var(--dim); }
+  .map .leaflet-control-zoom a {
+    background: var(--panel); color: var(--text); border-color: var(--border);
+  }
+  .map .leaflet-control-zoom a:hover { background: #171a21; color: var(--pink); }
+  .map .leaflet-bar { border: 1px solid var(--border); box-shadow: none; }
+  .pin { position: relative; width: 18px; height: 18px; }
+  .pin::before, .pin::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--violet));
+  }
+  .pin::before { animation: ping 2.4s ease-out infinite; }
+  .pin::after { box-shadow: 0 0 0 3px #08090b, 0 0 18px rgba(255, 77, 157, .7); }
+  @keyframes ping { 0% { transform: scale(1); opacity: .55 } 100% { transform: scale(3.2); opacity: 0 } }
+  @media (prefers-reduced-motion: reduce) { .pin::before { animation: none; opacity: 0; } }
+  .map-label {
+    background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 8px;
+    padding: 4px 10px; font-size: .8rem; font-weight: 500; box-shadow: 0 6px 20px rgba(0,0,0,.45);
+  }
+  .map-label::before { display: none; }
+  @media (max-width: 620px) { .map { height: 230px; } }
+
   footer {
     max-width: 900px; margin: 0 auto;
     padding: 30px 24px 64px; color: var(--dim); font-size: .84rem;
@@ -420,6 +453,7 @@
         <a href="https://maps.app.goo.gl/CqZmpwE4uNXptvNP8" target="_blank" rel="noopener">Open in Google Maps</a>
         &middot; 38&deg;44&prime;08.7&Prime;N 9&deg;08&prime;22.9&Prime;W
       </p>
+      <div class="map" id="venue-map" role="img" aria-label="Map showing the Physics building, Instituto Superior Técnico, Alameda campus, Lisbon"></div>
     </div>
   </section>
 
@@ -430,5 +464,23 @@
   <a href="https://fisica.tecnico.ulisboa.pt/en/ringdown-in-lisbon/" target="_blank" rel="noopener">Ringdown in Lisbon</a>
 </footer>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  (function () {
+    var box = document.getElementById('venue-map');
+    if (!box || !window.L) { if (box) box.hidden = true; return; }
+    var here = [38.735750, -9.139694]; // 38°44'08.7"N 9°08'22.9"W
+    var map = L.map(box, { scrollWheelZoom: false, attributionControl: true }).setView(here, 16);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      subdomains: 'abcd', maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    }).addTo(map);
+    var icon = L.divIcon({ className: '', html: '<div class="pin"></div>', iconSize: [18, 18], iconAnchor: [9, 9] });
+    L.marker(here, { icon: icon, keyboard: false }).addTo(map)
+      .bindTooltip('Room P12 · Physics building', { permanent: true, direction: 'top', offset: [0, -14], className: 'map-label' });
+    map.on('click', function () { map.scrollWheelZoom.enable(); });
+    map.on('mouseout', function () { map.scrollWheelZoom.disable(); });
+  })();
+</script>
 </body>
 </html>
